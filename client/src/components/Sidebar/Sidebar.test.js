@@ -19,13 +19,9 @@ const defaultProps = {
 
 describe('<Sidebar />', () => {
   const container = shallow(<Sidebar props={{ ...defaultProps }} />);
-  //   it('should match the snapshot', () => {
+  //   it('Should match snapshot', () => {
   //     expect(container.html()).toMatchSnapshot();
   //   });
-
-  it('Should match snapshot', () => {
-    expect(container.html()).toMatchSnapshot();
-  });
 
   it('Should have three links', () => {
     expect(container.find('Link').length).toEqual(3);

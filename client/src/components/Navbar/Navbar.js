@@ -2,10 +2,13 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
+
+import AuthModal from 'components/AuthModal/AuthModal';
 
 function Navbar({ props: { setShowSidebar, classes } }) {
   const toggleSideBar = () => {
@@ -14,8 +17,15 @@ function Navbar({ props: { setShowSidebar, classes } }) {
 
   return (
     <div className={classes.root}>
-      <AppBar position='static' className={classes.darkBg}>
-        <Toolbar>
+      <AppBar
+        position='static'
+        className={clsx(
+          classes.navbar,
+          classes.blackishBg,
+          classes.whitishText
+        )}
+      >
+        <Toolbar className={classes.whitishText}>
           <IconButton
             edge='start'
             className={classes.menuButton}
@@ -23,12 +33,16 @@ function Navbar({ props: { setShowSidebar, classes } }) {
             aria-label='menu'
             onClick={toggleSideBar}
           >
-            <MenuIcon />
+            <MenuIcon className={classes.whitishText} />
           </IconButton>
-          <Typography variant='h6' className={classes.title}>
+          <Typography
+            variant='h6'
+            className={clsx(classes.title, classes.whitishText)}
+          >
             Material Style
           </Typography>
-          <Button color='inherit'>Login</Button>
+          <AuthModal />
+          {/* <Button color='inherit'>Login</Button> */}
         </Toolbar>
       </AppBar>
     </div>
