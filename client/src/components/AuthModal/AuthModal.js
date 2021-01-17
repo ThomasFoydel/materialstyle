@@ -40,9 +40,9 @@ export default function AuthModal() {
   const ModalBody = (
     <div style={modalStyle} className={classes.paper}>
       {authPage === 'register' ? (
-        <Register props={{ handleSubmit: handleRegister }} />
+        <Register props={{ handleSubmit: handleRegister, setAuthPage }} />
       ) : (
-        <Login props={{ handleSubmit: handleLogin }} />
+        <Login props={{ handleSubmit: handleLogin, setAuthPage }} />
       )}
     </div>
   );

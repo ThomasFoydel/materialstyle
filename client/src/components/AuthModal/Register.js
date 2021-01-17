@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Register = ({ props: { handleSubmit } }) => {
+const Register = ({ props: { handleSubmit, setAuthPage } }) => {
   const classes = useStyles();
   return (
     <div className={classes.register}>
@@ -44,7 +44,10 @@ const Register = ({ props: { handleSubmit } }) => {
         <InputLabel htmlFor='confirmpassword'>Confirm Password</InputLabel>
         <Input id='confirmpassword' type='password' />
       </FormControl>
-      <Button onClick={handleSubmit}>submit</Button>
+      <Button onClick={handleSubmit}>Submit</Button>
+      <Button onClick={() => setAuthPage('login')}>
+        I already have an account
+      </Button>
     </div>
   );
 };
