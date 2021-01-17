@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Button, Modal } from '@material-ui/core';
 import Login from './Login';
 import Register from './Register';
+import { login } from 'redux/auth/actions';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -15,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AuthModal() {
+const AuthModal = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
   const [authPage, setAuthPage] = useState('register');
@@ -62,4 +64,16 @@ export default function AuthModal() {
       </Modal>
     </div>
   );
-}
+};
+
+const mapStateToProps = (state) => {
+  return {
+    userId: state.auth.userId,
+    token: state.auth.token,
+    isLoggedIn: state.auth.isLoggedIn,
+  };
+};
+const mapDispatchToProps = (dispatch) => ({
+  login: (user) => dispatch(login(user)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(AuthModal);
