@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Button from '@material-ui/core/Button';
+import { Button, Modal } from '@material-ui/core';
+import Login from './Login';
+import Register from './Register';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -16,7 +17,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AuthModal() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [authPage, setAuthPage] = useState('register');
 
   const handleOpen = () => {
     setOpen(true);
@@ -32,10 +34,16 @@ export default function AuthModal() {
     transform: `translate(-50%, -50%)`,
   };
 
+  const handleRegister = () => {};
+  const handleLogin = () => {};
+
   const ModalBody = (
     <div style={modalStyle} className={classes.paper}>
-      <h2 id='simple-modal-title'>Login</h2>
-      <p id='simple-modal-description'>register</p>
+      {authPage === 'register' ? (
+        <Register props={{ handleSubmit: handleRegister }} />
+      ) : (
+        <Login props={{ handleSubmit: handleLogin }} />
+      )}
     </div>
   );
 
