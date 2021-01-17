@@ -5,6 +5,7 @@ import Login from './Login';
 import Register from './Register';
 import { login } from 'redux/auth/actions';
 import { connect } from 'react-redux';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -20,6 +21,19 @@ const useStyles = makeStyles((theme) => ({
 const AuthModal = () => {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [formState, setFormState] = useState({
+    register: {
+      email: '',
+      username: '',
+      password: '',
+      confirmpassword: '',
+    },
+    login: {
+      email: '',
+      password: '',
+    },
+  });
+
   const [authPage, setAuthPage] = useState('register');
 
   const handleOpen = () => {
@@ -36,15 +50,47 @@ const AuthModal = () => {
     transform: `translate(-50%, -50%)`,
   };
 
-  const handleRegister = () => {};
-  const handleLogin = () => {};
+  const handleRegister = () => {
+    axios
+      .post('/api/register', { formData: formState.register })
+      .then((result) => {
+        console.log({ result });
+      })
+      .catch((err) => {
+        console.log({ err });
+      });
+  };
+  const handleLogin = () => {
+    axios
+      .post('/api/login', { formData: formState.register })
+      .then((result) => {
+        console.log({ result });
+      })
+      .catch((err) => {
+        console.log({ err });
+      });
+  };
 
   const ModalBody = (
     <div style={modalStyle} className={classes.paper}>
       {authPage === 'register' ? (
-        <Register props={{ handleSubmit: handleRegister, setAuthPage }} />
+        <Register
+          props={{
+            handleSubmit: handleRegister,
+            setAuthPage,
+            formState,
+            setFormState,
+          }}
+        />
       ) : (
-        <Login props={{ handleSubmit: handleLogin, setAuthPage }} />
+        <Login
+          props={{
+            handleSubmit: handleLogin,
+            setAuthPage,
+            formState,
+            setFormState,
+          }}
+        />
       )}
     </div>
   );
@@ -73,7 +119,9 @@ const mapStateToProps = (state) => {
     isLoggedIn: state.auth.isLoggedIn,
   };
 };
+
 const mapDispatchToProps = (dispatch) => ({
   login: (user) => dispatch(login(user)),
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(AuthModal);

@@ -12,18 +12,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = ({ props: { handleSubmit, setAuthPage } }) => {
+const Login = ({
+  props: { handleSubmit, setAuthPage, formState, setFormState },
+}) => {
   const classes = useStyles();
+  const { email, password } = formState.login;
+
+  const handleChange = ({ target: { value, id } }) => {
+    setFormState((formState) => ({
+      ...formState,
+      login: { ...formState.register, [id]: value },
+    }));
+  };
+
   return (
     <div className={classes.login}>
       <h2>Login</h2>
       <FormControl>
         <InputLabel htmlFor='email'>Email address</InputLabel>
-        <Input id='email' aria-describedby='my-helper-text' />
+        <Input id='email' value={email} onChange={handleChange} />
       </FormControl>
       <FormControl>
         <InputLabel htmlFor='password'>Password</InputLabel>
-        <Input id='password' type='password' />
+        <Input
+          id='password'
+          value={password}
+          onChange={handleChange}
+          type='password'
+        />
       </FormControl>
       <Button onClick={handleSubmit}>Sign in</Button>
       <Button onClick={() => setAuthPage('register')}>Sign up</Button>
