@@ -52,7 +52,7 @@ const AuthModal = () => {
 
   const handleRegister = () => {
     axios
-      .post('/api/register', { formData: formState.register })
+      .post('/api/auth/register', { formData: formState.register })
       .then((result) => {
         console.log({ result });
       })
@@ -62,7 +62,7 @@ const AuthModal = () => {
   };
   const handleLogin = () => {
     axios
-      .post('/api/login', { formData: formState.register })
+      .post('/api/auth/login', { formData: formState.register })
       .then((result) => {
         console.log({ result });
       })
