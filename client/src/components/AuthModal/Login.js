@@ -21,7 +21,7 @@ const Login = ({
   const handleChange = ({ target: { value, id } }) => {
     setFormState((formState) => ({
       ...formState,
-      login: { ...formState.register, [id]: value },
+      login: { ...formState.login, [id]: value },
     }));
   };
 
