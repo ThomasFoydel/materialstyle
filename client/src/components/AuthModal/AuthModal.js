@@ -53,8 +53,10 @@ const AuthModal = () => {
   const handleRegister = () => {
     axios
       .post('/api/auth/register', { formData: formState.register })
-      .then((result) => {
-        console.log({ result });
+      .then(({ data, err }) => {
+        console.log({ data, err });
+        if (err) return console.log('register err: ', err);
+        setAuthPage('login');
       })
       .catch((err) => {
         console.log({ err });
@@ -63,8 +65,11 @@ const AuthModal = () => {
   const handleLogin = () => {
     axios
       .post('/api/auth/login', { formData: formState.register })
-      .then((result) => {
-        console.log({ result });
+      .then(({ data, err }) => {
+        console.log({ data, err });
+        if (err) return console.log('login err: ', err);
+        const { token, user } = data;
+        login({ token, user });
       })
       .catch((err) => {
         console.log({ err });
